@@ -1,13 +1,20 @@
 import express from 'express';
-import dotenv from 'dotenv';
-import logger from './logger';
-
-dotenv.config();
-const appPort = process.env.APP_PORT;
+import 'dotenv/config';
+import morgan from 'morgan';
+import userRoutes from './routes/users';
+import productRoutes from './routes/products';
+import categoriesRoutes from './routes/categories';
 
 const app = express();
+
+// App middlewares
+app.use(morgan('dev'));
 app.use(express.json());
 
-app.listen(appPort, () => {
-  logger.info(`Server running on port: ${JSON.stringify(appPort)}`);
-});
+// App Routes
+// users
+app.use('/api/users', userRoutes);
+app.use('/api/products', productRoutes);
+app.use('/api/categories', categoriesRoutes);
+
+export default app;
