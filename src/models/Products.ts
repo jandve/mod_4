@@ -1,6 +1,8 @@
 import sequelize from '../database/dbConnection';
 import { DataTypes } from 'sequelize';
 import { v4 as uuidv4 } from 'uuid';
+import Users from './Users';
+import Categories from './Categories';
 
 const Products = sequelize.define('products', {
   id: {

@@ -1,6 +1,7 @@
 import sequelize from '../database/dbConnection';
 import { DataTypes } from 'sequelize';
 import { v4 as uuidv4 } from 'uuid';
+import Products from './Products';
 
 const Categories = sequelize.define('categories', {
   id: {
@@ -21,4 +22,7 @@ const Categories = sequelize.define('categories', {
   },
 });
 
+Categories.hasMany(Products, {
+  foreignKey: 'categoryId',
+});
 export default Categories;

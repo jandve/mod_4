@@ -1,6 +1,8 @@
 import sequelize from '../database/dbConnection';
 import { DataTypes } from 'sequelize';
 import { v4 as uuidv4 } from 'uuid';
+import Categories from './Categories';
+import Products from './Products';
 
 const Users = sequelize.define('users', {
   id: {
@@ -28,6 +30,15 @@ const Users = sequelize.define('users', {
     allowNull: false,
     comment: "If true the user is active if false is inactive or 'deleted'",
   },
+});
+
+//Relations
+Users.hasMany(Categories, {
+  foreignKey: 'userId',
+});
+
+Users.hasMany(Products, {
+  foreignKey: 'userId',
 });
 
 export default Users;
