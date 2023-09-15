@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import { errorHandler } from '../common/errorHandler';
 import Categories from '../models/Categories';
+import Products from '../models/Products';
 
 async function getCategories(req: Request, res: Response) {
   try {
@@ -67,7 +68,6 @@ async function editCategory(req: Request, res: Response) {
 
 async function deleteCategoryById(req: Request, res: Response) {
   const { categoryId } = req.params;
-  console.log('====>', categoryId);
   try {
     await Categories.destroy({ where: { id: categoryId } });
     res.status(204).send();
@@ -76,4 +76,28 @@ async function deleteCategoryById(req: Request, res: Response) {
   }
 }
 
-export { getCategories, getCategoriesById, createCategory, editCategory, deleteCategoryById };
+async function getCategoriesWithProductsByUserId(req: Request, res: Response) {
+  const { userId } = req.params;
+  try {
+    const response = await Categories.findAll({
+      where: { userId },
+      include: [
+        {
+          model: Products,
+        },
+      ],
+    });
+    res.status(200).send(response);
+  } catch (e) {
+    errorHandler(e as Error, res);
+  }
+}
+
+export {
+  getCategories,
+  getCategoriesById,
+  createCategory,
+  editCategory,
+  deleteCategoryById,
+  getCategoriesWithProductsByUserId,
+};

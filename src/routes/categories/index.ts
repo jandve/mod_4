@@ -5,7 +5,9 @@ import {
   createCategory,
   editCategory,
   deleteCategoryById,
+  getCategoriesWithProductsByUserId,
 } from '../../controllers/category.controller';
+import { authRequired } from '../../middlewares/auth';
 
 const router = Router();
 
@@ -18,5 +20,7 @@ router.post('/', createCategory);
 router.put('/:categoryId', editCategory);
 
 router.delete('/:categoryId', deleteCategoryById);
+
+router.get('/:userId/categories-with-products', authRequired, getCategoriesWithProductsByUserId);
 
 export default router;
