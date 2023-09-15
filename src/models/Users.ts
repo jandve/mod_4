@@ -1,15 +1,24 @@
 import sequelize from '../database/dbConnection';
-import { DataTypes } from 'sequelize';
+import { DataTypes, Model } from 'sequelize';
 import { v4 as uuidv4 } from 'uuid';
 import Categories from './Categories';
 import Products from './Products';
+import { UUID } from 'crypto';
 
-const Users = sequelize.define('users', {
+interface Users {
+  id: UUID;
+  name: string;
+  email: string;
+  password: string;
+  state: boolean;
+}
+
+const Users = sequelize.define<Model, Users>('users', {
   id: {
     type: DataTypes.UUID,
     primaryKey: true,
     autoIncrement: false,
-    defaultValue: uuidv4(),
+    defaultValue: () => uuidv4(),
     allowNull: false,
   },
   name: {
@@ -19,6 +28,12 @@ const Users = sequelize.define('users', {
   email: {
     type: DataTypes.STRING,
     allowNull: false,
+    unique: true,
+    validate: {
+      isEmail: {
+        msg: 'Invalid Email format',
+      },
+    },
   },
   password: {
     type: DataTypes.STRING,

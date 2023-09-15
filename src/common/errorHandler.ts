@@ -10,4 +10,9 @@ function errorHandler(error: Error, res: Response) {
   res.status(500).send({ message: error.message });
 }
 
-export { errorHandler };
+function authenticationRequiredError(res: Response) {
+  Logger.error('No authorization token');
+  res.status(403).send({ message: 'Authorization is required!' });
+}
+
+export { errorHandler, authenticationRequiredError };

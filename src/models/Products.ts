@@ -9,7 +9,7 @@ const Products = sequelize.define('products', {
     type: DataTypes.UUID,
     primaryKey: true,
     autoIncrement: false,
-    defaultValue: uuidv4(),
+    defaultValue: () => uuidv4(),
     allowNull: false,
   },
   name: {

@@ -39,6 +39,7 @@ async function createUser(req: Request, res: Response) {
     );
     res.status(201).send({ user });
   } catch (e) {
+    console.log(e);
     errorHandler(e as Error, res);
   }
 }
