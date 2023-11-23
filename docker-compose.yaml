@@ -1,8 +1,7 @@
 version: "3"
 services:
   backend:
-    build:
-      context: .
+    image: jandve/examen-final
     depends_on:
       - db
     container_name: backend
