@@ -4,6 +4,8 @@
   "description": "products-api",
   "main": "./src/index.ts",
   "scripts": {
+    "start": "ts-node src/index.ts",
+    "build": "tsc",
     "watch": "nodemon"
   },
   "repository": {

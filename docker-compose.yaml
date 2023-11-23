@@ -1,5 +1,15 @@
 version: "0.1.0"
 services:
+  backend:
+    build:
+      context: .
+    depends_on:
+      - db
+    container_name: backend
+    ports:
+      - "3000:3000"
+    expose:
+      - 3000
   db:
     image: postgres
     restart: always
@@ -8,7 +18,5 @@ services:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=password
       - POSTGRES_DB=module_4_db
-    ports:
-      - 5466:5432
     expose:
-      - 5466
+      - 5432
